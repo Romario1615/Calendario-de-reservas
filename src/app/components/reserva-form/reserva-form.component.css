@@ -1,0 +1,131 @@
+/* Contenedor del formulario — dentro del modal, ocupa todo el ancho disponible */
+.form-container {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 32px 28px 28px;
+}
+
+.form-titulo {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #dbeafe;
+  padding-bottom: 10px;
+}
+
+/* Mensaje de alerta */
+.alerta {
+  background-color: #fef2f2;
+  border-left: 4px solid #ef4444;
+  color: #b91c1c;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+/* Grupo de campo */
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Input del formulario */
+.form-input {
+  padding: 9px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #f9fafb;
+}
+
+.form-input:focus {
+  border-color: #3b82f6;
+  background: #fff;
+}
+
+/* Aviso de disponibilidad por franja */
+.disp {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-top: var(--space-2);
+}
+.disp svg { flex-shrink: 0; }
+
+.disp.libre {
+  background: #dcfce7;
+  color: #15803d;
+}
+.disp.ocupado {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.disp-hint {
+  margin-top: var(--space-2);
+  font-size: 0.82rem;
+  color: var(--color-fg-muted);
+}
+
+/* Botones */
+.form-botones {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-guardar:disabled {
+  background-color: #9fb4e6;
+  cursor: not-allowed;
+}
+
+.btn-guardar {
+  flex: 1;
+  padding: 10px;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.btn-guardar:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* Botón limpiar formulario (tarea f) */
+.btn-limpiar {
+  flex: 1;
+  padding: 10px;
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-limpiar:hover {
+  background-color: #e5e7eb;
+}

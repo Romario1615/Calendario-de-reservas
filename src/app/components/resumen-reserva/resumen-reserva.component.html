@@ -1,0 +1,42 @@
+<!--
+  AsyncPipe (| async): se suscribe automáticamente al Observable reserva$
+  y actualiza la vista cada vez que se emite un nuevo valor.
+  También se desuscribe automáticamente cuando el componente se destruye,
+  evitando memory leaks. Esto es el flujo reactivo de datos.
+-->
+<div class="resumen-container" *ngIf="reserva$ | async as reserva; else sinReserva">
+
+  <h3 class="resumen-titulo">Resumen de la Reserva</h3>
+
+  <div class="resumen-grid">
+    <!-- Información del espacio -->
+    <div class="resumen-seccion">
+      <h4>Espacio</h4>
+      <p><strong>Nombre:</strong> {{ reserva.espacio.nombre }}</p>
+      <p><strong>Tipo:</strong> {{ reserva.espacio.tipo }}</p>
+      <p><strong>Capacidad:</strong> {{ reserva.espacio.capacidad }} personas</p>
+      <p><strong>Ubicación:</strong> {{ reserva.espacio.ubicacion }}</p>
+    </div>
+
+    <!-- Información de la reserva -->
+    <div class="resumen-seccion">
+      <h4>Datos de la Reserva</h4>
+      <p><strong>Responsable:</strong> {{ reserva.responsable }}</p>
+      <p><strong>Fecha:</strong> {{ reserva.fecha }}</p>
+      <p><strong>Hora:</strong> {{ reserva.hora }}</p>
+      <!-- Carrera solicitante (tarea d) -->
+      <p><strong>Carrera solicitante:</strong> {{ reserva.carrera }}</p>
+    </div>
+  </div>
+
+  <div class="resumen-estado">
+    Reserva registrada exitosamente
+  </div>
+</div>
+
+<!-- Plantilla que se muestra cuando no hay reserva activa -->
+<ng-template #sinReserva>
+  <div class="sin-reserva">
+    <p>No hay ninguna reserva registrada. Selecciona un espacio y completa el formulario.</p>
+  </div>
+</ng-template>

@@ -1,0 +1,148 @@
+/* ============================================================================
+   SISTEMA DE DISEÑO (tokens globales)
+   Estilo: Minimalismo / Swiss. Paleta y tipografia recomendadas por la skill
+   ui-ux-pro-max para un dashboard academico (profesional y accesible).
+   Centralizar los valores aqui evita "drift" (colores hardcodeados sueltos):
+   cada pantalla usa estas variables, no hex repetidos.
+   ============================================================================ */
+
+/* Tipografias: Figtree (titulos) + Noto Sans (cuerpo). display=swap evita FOIT. */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  /* --- Color (roles semanticos, no nombres de color) --- */
+  --color-primary: #2563eb;       /* azul de marca */
+  --color-primary-hover: #1d4ed8; /* azul mas oscuro para hover */
+  --color-on-primary: #ffffff;    /* texto sobre el azul */
+  --color-accent: #059669;        /* verde para acciones de exito */
+  --color-bg: #f8fafc;            /* fondo de la app */
+  --color-surface: #ffffff;       /* tarjetas, paneles */
+  --color-fg: #0f172a;            /* texto principal */
+  --color-fg-muted: #64748b;      /* texto secundario */
+  --color-muted: #f1f5fd;         /* fondos suaves (filas, chips) */
+  --color-border: #e4ecfc;        /* bordes sutiles */
+  --color-danger: #dc2626;        /* errores / cerrar sesion */
+  --color-danger-soft: #fef2f2;   /* fondo suave de error */
+  --color-ring: #2563eb;          /* color del anillo de foco */
+
+  /* --- Escala de espaciado (base 4px) --- */
+  --space-1: 0.25rem;  /* 4px  */
+  --space-2: 0.5rem;   /* 8px  */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.5rem;   /* 24px */
+  --space-6: 2rem;     /* 32px */
+  --space-8: 3rem;     /* 48px */
+
+  /* --- Radios de borde --- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* --- Sombras (sutiles, estilo Swiss) --- */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+
+  /* --- Tipografia --- */
+  --font-heading: 'Figtree', system-ui, sans-serif;
+  --font-body: 'Noto Sans', system-ui, sans-serif;
+
+  /* --- Transiciones (150-300ms con easing natural) --- */
+  --transition: 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* --- Reset minimo --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
+  color: var(--color-fg);
+}
+
+button, input {
+  font-family: inherit;
+}
+
+/* Anillo de foco visible y consistente para navegacion con teclado (accesibilidad) */
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* --- Sistema de botones reutilizable (usado por varias pantallas) --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.55rem 0.9rem;
+  min-height: 40px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn-secundario {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-primary);
+}
+.btn-secundario:hover {
+  background: var(--color-muted);
+}
+
+.btn-logout {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-danger);
+}
+.btn-logout:hover {
+  background: var(--color-danger-soft);
+  border-color: #fecaca;
+}
+
+/* --- Animacion de entrada reutilizable ---
+   Aparicion suave con un ligero desplazamiento hacia arriba. */
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animar-entrada {
+  animation: aparecer 350ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Respeta la preferencia del sistema de reducir animaciones */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

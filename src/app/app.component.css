@@ -1,0 +1,57 @@
+/* Layout global de la aplicación */
+.app-wrapper {
+  min-height: 100vh;
+  background-color: #f1f5f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Encabezado */
+.app-header {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+  color: white;
+  padding: 30px 40px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.app-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+}
+
+.app-subtitulo {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin: 0;
+}
+
+/* Contenido principal: layout de dos columnas */
+.app-main {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 30px;
+  padding: 30px 40px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .app-main {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+}
+
+/* Encabezado del resumen */
+.resumen-header {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 16px;
+}
+
+.col-resumen {
+  position: sticky;
+  top: 20px;
+  align-self: start;
+}

@@ -1,0 +1,91 @@
+<!-- Formulario de reserva con data binding bidireccional mediante [(ngModel)] -->
+<div class="form-container">
+  <h3 class="form-titulo">Reservar: {{ espacio.nombre }}</h3>
+
+  <!-- Mensaje de alerta para validaciones -->
+  <div class="alerta" *ngIf="mensajeAlerta">
+    {{ mensajeAlerta }}
+  </div>
+
+  <form (ngSubmit)="guardarReserva()">
+
+    <!-- Campo: Responsable -->
+    <div class="form-group">
+      <label for="responsable">Responsable</label>
+      <!-- [(ngModel)]: enlaza el campo con la propiedad del componente (two-way binding) -->
+      <input
+        type="text"
+        id="responsable"
+        [(ngModel)]="responsable"
+        name="responsable"
+        placeholder="Nombre del responsable (mín. 3 caracteres)"
+        class="form-input">
+    </div>
+
+    <!-- Campo: Fecha -->
+    <div class="form-group">
+      <label for="fecha">Fecha</label>
+      <input
+        type="date"
+        id="fecha"
+        [(ngModel)]="fecha"
+        name="fecha"
+        class="form-input">
+    </div>
+
+    <!-- Campo: Hora -->
+    <div class="form-group">
+      <label for="hora">Hora</label>
+      <input
+        type="time"
+        id="hora"
+        [(ngModel)]="hora"
+        name="hora"
+        class="form-input">
+    </div>
+
+    <!-- Campo: Carrera solicitante (tarea d) -->
+    <div class="form-group">
+      <label for="carrera">Carrera solicitante</label>
+      <input
+        type="text"
+        id="carrera"
+        [(ngModel)]="carrera"
+        name="carrera"
+        placeholder="Ej: Ingeniería en Sistemas"
+        class="form-input">
+    </div>
+
+    <!-- Aviso de disponibilidad (nueva lógica: por fecha + hora) -->
+    <div class="disp" [ngClass]="disponibilidad" *ngIf="disponibilidad !== 'incompleto'">
+      <svg *ngIf="disponibilidad === 'libre'" width="16" height="16" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+           stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <svg *ngIf="disponibilidad === 'ocupado'" width="16" height="16" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+           stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle>
+           <line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+      <span *ngIf="disponibilidad === 'libre'">Disponible: el espacio está libre el {{ fecha }} a las {{ hora }}.</span>
+      <span *ngIf="disponibilidad === 'ocupado'">Ocupado: ya hay una reserva de este espacio el {{ fecha }} a las {{ hora }}.</span>
+    </div>
+
+    <!-- Mensaje cuando aún falta elegir fecha/hora -->
+    <p class="disp-hint" *ngIf="disponibilidad === 'incompleto'">
+      Elige fecha y hora para comprobar la disponibilidad.
+    </p>
+
+    <!-- Botones del formulario -->
+    <div class="form-botones">
+      <!-- Se deshabilita si el espacio está ocupado en esa franja o mientras se envía -->
+      <button type="submit" class="btn-guardar"
+              [disabled]="disponibilidad === 'ocupado' || enviando">
+        {{ enviando ? 'Guardando...' : 'Guardar reserva' }}
+      </button>
+      <!-- Botón limpiar formulario (tarea f) -->
+      <button type="button" class="btn-limpiar" (click)="limpiarFormulario()">
+        Limpiar formulario
+      </button>
+    </div>
+
+  </form>
+</div>

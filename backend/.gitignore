@@ -1,0 +1,6 @@
+# Dependencias instaladas
+node_modules/
+
+# Variables de entorno: NUNCA se sube el secreto real al repositorio.
+# Se versiona solo .env.example como plantilla.
+.env

@@ -1,0 +1,80 @@
+/* Tarjeta del panel: superficie clara, consistente con el resto de la app */
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.panel-cab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--color-muted);
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  text-align: left;
+}
+
+.panel-icono {
+  display: inline-flex;
+  color: var(--color-primary);
+}
+
+.panel-titulo {
+  flex: 1;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-fg);
+}
+
+.panel-chevron {
+  color: var(--color-fg-muted);
+  transition: transform var(--transition);
+}
+
+.panel-chevron.girado {
+  transform: rotate(180deg);
+}
+
+.panel-cuerpo {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--color-fg);
+}
+
+/* Estilos del contenido proyectado (parrafos, listas y codigo inline) */
+.panel-cuerpo ::ng-deep p {
+  margin: 0;
+}
+
+.panel-cuerpo ::ng-deep ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Solo el codigo INLINE dentro de parrafos y listas
+   (no toca los bloques <pre><code> de las tarjetas app-code-card) */
+.panel-cuerpo ::ng-deep p code,
+.panel-cuerpo ::ng-deep ul code {
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 0.78rem;
+  background: var(--color-muted);
+  border: 1px solid var(--color-border);
+  padding: 0.05rem 0.4rem;
+  border-radius: 4px;
+  color: var(--color-primary-hover);
+  white-space: nowrap;
+}

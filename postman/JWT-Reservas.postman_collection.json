@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "JWT Reservas - Demo Autenticacion",
+    "description": "Coleccion para demostrar el flujo JWT del backend de gestion de reservas. Variables: baseUrl y token (el token se guarda solo desde el login).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1) POST /login (guarda token)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Verifica que el login devuelva 200 y un token, y lo guarda",
+              "pm.test('Status 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "var data = pm.response.json();",
+              "pm.test('Respuesta contiene token', function () {",
+              "    pm.expect(data).to.have.property('token');",
+              "});",
+              "// Guarda el token en la variable de coleccion {{token}}",
+              "pm.collectionVariables.set('token', data.token);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": \"admin\",\n  \"password\": \"admin123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["login"]
+        }
+      }
+    },
+    {
+      "name": "2) GET /reservas con token valido (200)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Devuelve un arreglo de reservas', function () {",
+              "    pm.expect(pm.response.json()).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/reservas",
+          "host": ["{{baseUrl}}"],
+          "path": ["reservas"]
+        }
+      }
+    },
+    {
+      "name": "3) GET /reservas con token invalido (401)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 401', function () {",
+              "    pm.response.to.have.status(401);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer token-invalido" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/reservas",
+          "host": ["{{baseUrl}}"],
+          "path": ["reservas"]
+        }
+      }
+    },
+    {
+      "name": "4) GET /reservas sin Authorization (401)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 401', function () {",
+              "    pm.response.to.have.status(401);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/reservas",
+          "host": ["{{baseUrl}}"],
+          "path": ["reservas"]
+        }
+      }
+    }
+  ]
+}

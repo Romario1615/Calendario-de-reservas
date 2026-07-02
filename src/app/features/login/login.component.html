@@ -1,0 +1,85 @@
+<!-- Pantalla de login a lo ancho: panel explicativo a la IZQUIERDA, formulario a la derecha -->
+<div class="login-page">
+
+  <!-- Panel contextual: cómo funciona la autenticación (texto + código real) -->
+  <app-panel-explicacion titulo="Autenticación con JWT" class="login-panel animar-entrada">
+    <p>
+      Este formulario envía las credenciales (simuladas en memoria) a
+      <code>POST /login</code>. Si son correctas, la API firma y devuelve un
+      <strong>JWT</strong>; si fallan, responde <code>401 Unauthorized</code> con un
+      mensaje genérico.
+    </p>
+
+    <app-code-card archivo="backend/server.js — POST /login" [codigo]="codigoLogin"></app-code-card>
+
+    <p>
+      El frontend <strong>no valida firmas</strong>: solo guarda el token y lo usa en las
+      siguientes peticiones.
+    </p>
+
+    <app-code-card archivo="src/app/core/auth.service.ts" [codigo]="codigoService"></app-code-card>
+  </app-panel-explicacion>
+
+  <!-- Formulario de acceso -->
+  <div class="login-lado-form">
+    <form class="login-card animar-entrada" (ngSubmit)="iniciarSesion()" novalidate>
+
+      <!-- Marca / encabezado -->
+      <div class="login-brand">
+        <span class="login-logo" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </span>
+        <h1>Iniciar sesion</h1>
+        <p class="login-sub">Accede para ver el recurso protegido</p>
+      </div>
+
+      <!-- Campo usuario -->
+      <div class="login-field">
+        <label for="usuario">Usuario</label>
+        <input id="usuario" name="usuario" type="text"
+               [(ngModel)]="usuario" autocomplete="username"
+               placeholder="admin" required />
+      </div>
+
+      <!-- Campo contrasena -->
+      <div class="login-field">
+        <label for="password">Contrasena</label>
+        <input id="password" name="password" type="password"
+               [(ngModel)]="password" autocomplete="current-password"
+               placeholder="********" required />
+      </div>
+
+      <!-- Mensaje de error generico (no revela si fallo usuario o contrasena) -->
+      <p class="login-error" *ngIf="error" role="alert">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        {{ error }}
+      </p>
+
+      <!-- Boton: muestra estado de carga y se deshabilita durante la peticion -->
+      <button type="submit" class="login-btn" [disabled]="cargando">
+        <span *ngIf="cargando" class="spinner" aria-hidden="true"></span>
+        {{ cargando ? 'Ingresando...' : 'Ingresar' }}
+      </button>
+
+      <!-- Credenciales de demo -->
+      <div class="login-hint">
+        <span>Credenciales de prueba</span>
+        <code>admin / admin123</code>
+        <code>profesor / reservas123</code>
+      </div>
+
+      <!-- Acceso a las pruebas de la API en vivo (Funcionalidad 5) -->
+      <a routerLink="/pruebas" class="login-pruebas">Ver pruebas de la API en vivo</a>
+    </form>
+  </div>
+
+</div>

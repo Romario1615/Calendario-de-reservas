@@ -1,0 +1,25 @@
+<!-- Panel de ayuda contextual: explicación + código de la pantalla actual -->
+<aside class="panel">
+  <button type="button" class="panel-cab" (click)="abierto = !abierto" [attr.aria-expanded]="abierto">
+    <!-- Icono informativo (SVG, no emoji) -->
+    <span class="panel-icono" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+      </svg>
+    </span>
+    <span class="panel-titulo">{{ titulo }}</span>
+    <svg class="panel-chevron" [class.girado]="abierto" width="16" height="16" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+         stroke-linejoin="round" aria-hidden="true">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <!-- Contenido proyectado por cada pantalla (texto + tarjetas de código) -->
+  <div class="panel-cuerpo" *ngIf="abierto">
+    <ng-content></ng-content>
+  </div>
+</aside>

@@ -1,0 +1,26 @@
+<!-- Aplicación principal de gestión de reservas académicas -->
+<div class="app-wrapper">
+
+  <!-- Encabezado de la aplicación -->
+  <header class="app-header">
+    <h1>{{ titulo }}</h1>
+    <p class="app-subtitulo">Selecciona un espacio y realiza tu reserva</p>
+  </header>
+
+  <!-- Contenido principal: lista de espacios y resumen lado a lado -->
+  <main class="app-main">
+
+    <!-- Columna izquierda: lista de espacios + formulario de reserva -->
+    <section class="col-espacios">
+      <app-lista-espacios></app-lista-espacios>
+    </section>
+
+    <!-- Columna derecha: resumen de la reserva actual (actualización dinámica con AsyncPipe) -->
+    <aside class="col-resumen">
+      <h2 class="resumen-header">Resumen de Reserva</h2>
+      <app-resumen-reserva></app-resumen-reserva>
+    </aside>
+
+  </main>
+
+</div>

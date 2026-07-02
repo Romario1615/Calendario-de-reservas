@@ -1,0 +1,214 @@
+/* Página a lo ancho: panel explicativo (izquierda) + formulario (derecha) */
+.login-page {
+  display: grid;
+  grid-template-columns: minmax(420px, 640px) 1fr;
+  gap: var(--space-6);
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: var(--space-6);
+  /* Fondo sutil con un toque de la marca */
+  background:
+    radial-gradient(900px circle at 50% -10%, rgba(37, 99, 235, 0.10), transparent 60%),
+    var(--color-bg);
+}
+
+.login-panel {
+  display: block;
+}
+
+.login-lado-form {
+  display: flex;
+  justify-content: center;
+}
+
+/* En pantallas pequeñas se apila y el FORMULARIO va primero
+   (prioridad a la acción principal; la ayuda queda debajo) */
+@media (max-width: 980px) {
+  .login-page {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .login-panel {
+    order: 2;
+    max-width: 640px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .login-lado-form {
+    order: 1;
+  }
+}
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 380px;
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* --- Encabezado / marca --- */
+.login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+}
+
+.login-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--color-muted);
+  color: var(--color-primary);
+}
+
+.login-card h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.login-sub {
+  color: var(--color-fg-muted);
+  font-size: 0.9rem;
+}
+
+/* --- Campos --- */
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.login-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-fg);
+}
+
+.login-field input {
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  color: var(--color-fg);
+  background: var(--color-surface);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.login-field input::placeholder {
+  color: #aab4c5;
+}
+
+/* Estado focus accesible: borde + halo suave */
+.login-field input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* --- Mensaje de error --- */
+.login-error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.6rem 0.75rem;
+  background: var(--color-danger-soft);
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-sm);
+  color: var(--color-danger);
+  font-size: 0.88rem;
+}
+
+.login-error svg {
+  flex-shrink: 0;
+}
+
+/* --- Boton primario --- */
+.login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  padding: 0.75rem;
+  min-height: 44px; /* objetivo tactil minimo */
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.login-btn:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.login-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Spinner de carga */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #fff;
+  border-radius: var(--radius-full);
+  animation: girar 0.7s linear infinite;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Pista de credenciales --- */
+.login-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+  font-size: 0.78rem;
+  color: var(--color-fg-muted);
+}
+
+.login-hint code {
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  background: var(--color-muted);
+  color: var(--color-fg);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+/* Enlace a las pruebas de la API */
+.login-pruebas {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.login-pruebas:hover {
+  text-decoration: underline;
+}
+

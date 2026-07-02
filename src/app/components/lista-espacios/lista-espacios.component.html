@@ -1,0 +1,28 @@
+<!-- Encabezado de la seccion con estadisticas (tarea h) -->
+<div class="seccion-encabezado">
+  <h2 class="seccion-titulo">Espacios Académicos</h2>
+  <div class="seccion-stats">
+    <span class="stat-chip stat-total">{{ totalEspacios }} espacios</span>
+    <span class="stat-chip stat-disp">Disponibilidad por fecha y hora</span>
+  </div>
+</div>
+
+<!-- Grid de tarjetas: itera sobre cada espacio y pasa datos al hijo mediante @Input -->
+<div class="grid-espacios">
+  <app-espacio-card
+    *ngFor="let espacio of espacios"
+    [espacio]="espacio"
+    (espacioSeleccionado)="onEspacioSeleccionado($event)">
+  </app-espacio-card>
+</div>
+
+<!-- Modal flotante: aparece al seleccionar un espacio -->
+<div class="modal-overlay" *ngIf="espacioSeleccionado" (click)="cerrarModal($event)">
+  <div class="modal-box">
+    <button class="modal-cerrar" (click)="espacioSeleccionado = null" title="Cerrar">&#x2715;</button>
+    <app-reserva-form
+      [espacio]="espacioSeleccionado"
+      (formularioCerrado)="onReservaGuardada($event)">
+    </app-reserva-form>
+  </div>
+</div>

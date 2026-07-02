@@ -1,0 +1,121 @@
+/* El host del componente debe ser bloque y ocupar todo el ancho disponible */
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Pagina de espacios: estilo claro/Swiss, consistente con login y reservas */
+.esp-page {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}
+
+/* --- Cabecera --- */
+.esp-topbar {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.esp-topbar-inner {
+  width: 100%;
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.esp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.2rem 0.6rem;
+  margin-bottom: var(--space-2);
+  background: var(--color-muted);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.esp-brand h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.esp-sub {
+  margin-top: var(--space-1);
+  color: var(--color-fg-muted);
+  font-size: 0.9rem;
+}
+
+.esp-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* --- Contenido: dos columnas --- */
+/* Tres columnas: panel explicativo | espacios | resumen */
+.esp-main {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 400px 1fr 320px;
+  gap: var(--space-5);
+  padding: var(--space-6) var(--space-6);
+  align-items: start;
+}
+
+/* Panel fijo al hacer scroll, con scroll propio si el contenido es largo */
+.esp-panel {
+  display: block;
+  position: sticky;
+  top: var(--space-5);
+  max-height: calc(100vh - var(--space-6));
+  overflow-y: auto;
+}
+
+/* Pantallas medianas: panel debajo del contenido (la acción principal primero) */
+@media (max-width: 1250px) {
+  .esp-main {
+    grid-template-columns: 1fr 320px;
+  }
+  .esp-panel {
+    position: static;
+    max-height: none;
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
+
+@media (max-width: 900px) {
+  .esp-main {
+    grid-template-columns: 1fr;
+    padding: var(--space-5) var(--space-4);
+  }
+}
+
+/* Encabezado del resumen */
+.resumen-header {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-fg);
+  margin-bottom: var(--space-4);
+}
+
+.col-resumen {
+  position: sticky;
+  top: var(--space-5);
+  align-self: start;
+}
+
+@media (max-width: 640px) {
+  .esp-actions {
+    width: 100%;
+  }
+  .esp-actions .btn {
+    flex: 1;
+  }
+}

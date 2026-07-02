@@ -1,0 +1,135 @@
+/* Tarjeta principal: height 100% para que todas las cards igualen el alto de la fila */
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* --- Media (imagen + badge de tipo) --- */
+.card-media {
+  position: relative;
+}
+
+.card-img {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+/* Marcador cuando la imagen no carga */
+.card-img-fallback {
+  width: 100%;
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-muted);
+  color: #aab4c5;
+}
+
+/* Badge del tipo de espacio, sobre la imagen */
+.card-tipo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 0.2rem 0.6rem;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  backdrop-filter: blur(2px);
+}
+
+.card-body {
+  padding: var(--space-5);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-fg);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Datos del espacio como lista etiqueta/valor */
+.card-meta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.card-meta li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-size: 0.88rem;
+}
+
+.card-meta span {
+  color: var(--color-fg-muted);
+}
+
+.card-meta strong {
+  color: var(--color-fg);
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Badge alta capacidad (con icono SVG, no emoji) */
+.alta-capacidad {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  align-self: flex-start;
+  color: #b45309;
+  background: #fef3c7;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.78rem;
+}
+
+/* Botón reservar (siempre activo; la disponibilidad se valida en el formulario) */
+.btn-seleccionar {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.6rem 1rem;
+  min-height: 42px;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color var(--transition);
+}
+
+.btn-seleccionar:hover {
+  background-color: var(--color-primary-hover);
+}

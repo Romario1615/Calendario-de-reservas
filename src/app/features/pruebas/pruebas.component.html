@@ -1,0 +1,100 @@
+<!-- Pantalla de pruebas de la API en vivo (Funcionalidad 5) -->
+<div class="pruebas-page">
+
+  <!-- Cabecera -->
+  <header class="pruebas-header">
+    <div>
+      <span class="pruebas-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        Evidencias — Pruebas con Postman
+      </span>
+      <h1>Pruebas de la API en vivo</h1>
+      <p class="pruebas-sub">
+        Las mismas 4 requests de la colección Postman, ejecutadas aquí contra el backend real.
+      </p>
+    </div>
+
+    <div class="pruebas-acciones">
+      <span class="pruebas-resumen" *ngIf="totalExito > 0">{{ totalExito }} / 4 pruebas OK</span>
+      <button class="btn btn-primary" (click)="ejecutarTodas()" [disabled]="ejecutandoTodas">
+        {{ ejecutandoTodas ? 'Ejecutando...' : 'Ejecutar todas' }}
+      </button>
+      <a routerLink="/reservas" class="btn btn-secundario">Volver a la app</a>
+    </div>
+  </header>
+
+  <!-- Cuerpo: panel explicativo (izquierda) + lista de pruebas (derecha) -->
+  <div class="pruebas-cuerpo">
+
+    <app-panel-explicacion titulo="Pruebas con Postman" class="pruebas-panel">
+      <p>
+        La tarea pide documentar: la <strong>obtención del token</strong>, el
+        <strong>consumo del endpoint protegido</strong>, y la respuesta con
+        <strong>token válido</strong> e <strong>incorrecto</strong>.
+      </p>
+      <p>
+        La colección exportada está en
+        <code>postman/JWT-Reservas.postman_collection.json</code> (4 requests con
+        <code ngNonBindable>{{baseUrl}}</code> y <code ngNonBindable>{{token}}</code>).
+        Esta pantalla ejecuta las mismas requests con <code>fetch</code> directo
+        —sin el interceptor— para ver las respuestas crudas de la API, incluidos los 401.
+      </p>
+
+      <app-code-card archivo="postman/JWT-Reservas.postman_collection.json"
+                     [codigo]="codigoTest"></app-code-card>
+
+      <p>
+        En Postman: <strong>Import</strong> → arrastrar el archivo → ejecutar las requests en
+        orden (o <strong>Run collection</strong>) con el backend encendido.
+      </p>
+    </app-panel-explicacion>
+
+    <!-- Lista de pruebas -->
+    <section class="pruebas-lista">
+      <article class="prueba" *ngFor="let p of pruebas" [attr.data-estado]="p.estado">
+
+        <!-- Cabecera de la prueba -->
+        <div class="prueba-cab">
+          <span class="prueba-num">{{ p.n }}</span>
+          <div class="prueba-titulo">
+            <h2>{{ p.titulo }}</h2>
+            <div class="prueba-request">
+              <span class="metodo" [ngClass]="p.metodo">{{ p.metodo }}</span>
+              <code>{{ p.ruta }}</code>
+              <span class="espera" [ngClass]="'e' + p.esperado">espera {{ p.esperado }}</span>
+            </div>
+          </div>
+          <button class="btn btn-secundario btn-ejecutar" (click)="ejecutar(p)"
+                  [disabled]="p.estado === 'ejecutando' || ejecutandoTodas">
+            {{ p.estado === 'ejecutando' ? 'Ejecutando...' : 'Ejecutar' }}
+          </button>
+        </div>
+
+        <p class="prueba-desc">{{ p.descripcion }}</p>
+
+        <!-- Resultado en vivo -->
+        <div class="prueba-resultado" *ngIf="p.estado === 'exito' || p.estado === 'fallo'">
+          <div class="resultado-linea">
+            <span class="resultado-etiqueta">Header enviado</span>
+            <code class="resultado-header">{{ p.headerEnviado }}</code>
+          </div>
+          <div class="resultado-linea">
+            <span class="resultado-etiqueta">Respuesta</span>
+            <span class="status" [ngClass]="p.estado === 'exito' ? 'ok' : 'mal'"
+                  *ngIf="p.status">HTTP {{ p.status }}</span>
+            <span class="veredicto" [ngClass]="p.estado">
+              <ng-container *ngIf="p.estado === 'exito'">PASS — coincide con lo esperado</ng-container>
+              <ng-container *ngIf="p.estado === 'fallo'">FAIL — no coincide con lo esperado</ng-container>
+            </span>
+          </div>
+          <pre class="resultado-cuerpo"><code>{{ p.cuerpo }}</code></pre>
+        </div>
+
+      </article>
+    </section>
+
+  </div>
+</div>
